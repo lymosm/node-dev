@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://donors-payments-periods-loops.trycloudflare.com"
+application_url = "https://asset-approximate-biological-boundaries.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://donors-payments-periods-loops.trycloudflare.com/auth/callback",
-  "https://donors-payments-periods-loops.trycloudflare.com/auth/shopify/callback",
-  "https://donors-payments-periods-loops.trycloudflare.com/api/auth/callback"
+  "https://asset-approximate-biological-boundaries.trycloudflare.com/auth/callback",
+  "https://asset-approximate-biological-boundaries.trycloudflare.com/auth/shopify/callback",
+  "https://asset-approximate-biological-boundaries.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
