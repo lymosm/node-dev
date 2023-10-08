@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://fourth-inherited-ut-magnetic.trycloudflare.com"
+application_url = "https://donors-payments-periods-loops.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://fourth-inherited-ut-magnetic.trycloudflare.com/auth/callback",
-  "https://fourth-inherited-ut-magnetic.trycloudflare.com/auth/shopify/callback",
-  "https://fourth-inherited-ut-magnetic.trycloudflare.com/api/auth/callback"
+  "https://donors-payments-periods-loops.trycloudflare.com/auth/callback",
+  "https://donors-payments-periods-loops.trycloudflare.com/auth/shopify/callback",
+  "https://donors-payments-periods-loops.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
