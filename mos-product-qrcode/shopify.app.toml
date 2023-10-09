@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://nearest-remedy-teen-films.trycloudflare.com"
+application_url = "https://cp-proposed-charged-fear.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://nearest-remedy-teen-films.trycloudflare.com/auth/callback",
-  "https://nearest-remedy-teen-films.trycloudflare.com/auth/shopify/callback",
-  "https://nearest-remedy-teen-films.trycloudflare.com/api/auth/callback"
+  "https://cp-proposed-charged-fear.trycloudflare.com/auth/callback",
+  "https://cp-proposed-charged-fear.trycloudflare.com/auth/shopify/callback",
+  "https://cp-proposed-charged-fear.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

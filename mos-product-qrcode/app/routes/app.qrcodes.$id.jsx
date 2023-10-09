@@ -1,7 +1,10 @@
 import {useState} from "react";
 import { useLoaderData, useNavigate, useNavigation, useSubmit } from "@remix-run/react";
 import { json } from "@remix-run/node";
-import { Page, Button, Text, TextField, Card, Layout, EmptyState, PageActions, VerticalStack, HorizontalStack } from "@shopify/polaris";
+import { Page, Button, Text, Bleed, TextField, Card, Layout, EmptyState, PageActions, VerticalStack, 
+    Divider,
+    HorizontalStack, 
+    ChoiceList} from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 import { getQrcode } from "../models/QRCode.server";
 
@@ -44,9 +47,9 @@ export default function QRCodeForm(){
             </ui-title-bar>
             <Layout>
                 <Layout.Section>
-                    <VerticalStack>
+                    <VerticalStack gap="5">
                         <Card>
-                            <VerticalStack>
+                            <VerticalStack gap="5"> 
                                 <Text as="h2">
                                     Title
                                 </Text>
@@ -56,19 +59,80 @@ export default function QRCodeForm(){
                                 />
                             </VerticalStack>
                         </Card>
-
+                        
                         <Card>
-                            <VerticalStack>
+                            <VerticalStack gap="5">
                                 <HorizontalStack>
+                                    <Text as="h2">
+                                        Product
+                                    </Text>
+                                
+                                </HorizontalStack>
+                                <HorizontalStack>
+                                    <Text as="h2">
+                                        {formState.productTitle}
+                                    </Text>
+                                
+                                </HorizontalStack>
+                                <VerticalStack>
+                                    <Button>
+                                        Select Product
+                                    </Button>
+                                
+                                </VerticalStack>
 
+                                <Bleed marginInline="20">
+                                    <Divider/>
+                                </Bleed>
+
+                                <HorizontalStack gap="5">
+                                    <ChoiceList
+                                        title="Scan destination"
+                                        selected={[formState.destination]}
+                                        choices={[
+                                            {
+                                                label: "Link to product page",
+                                                value: "product"
+                                            },
+                                            {
+                                                label: "Link to checkout page with cart",
+                                                value: "cart"
+                                            }
+                                        ]} />
                                 </HorizontalStack>
                             </VerticalStack>
                         </Card>
                     </VerticalStack>
                 </Layout.Section>
 
-                <Layout.Section>
+                <Layout.Section secondary>
+                    <Card>
+                        <Text as="h2">
+                            QRCode
+                        </Text>
+                        {qrcode ? (
+                            <EmptyState image="">
 
+                            </EmptyState>
+                        ) : (
+                            <EmptyState image="">
+                                Your QrCode will be shown here after you save
+                            </EmptyState>
+                        )}
+
+                        <VerticalStack gap="3">
+                            <Button
+                            primary
+                            >
+                                Download
+                            </Button>
+                            <Button
+                            external
+                            >
+                                Go To Public Url
+                            </Button>
+                        </VerticalStack>
+                    </Card>
                 </Layout.Section>
 
                 <Layout.Section>
