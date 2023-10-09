@@ -14,3 +14,54 @@ export async function getQRcodes(shop, graphal){
     });
     return [];
 }
+
+export async function getQrcode(id, graphal){
+    const qrCode = await db.qRCode.findFirst({
+        where: {id}
+    });
+    if(! qrCode){
+        return null;
+    }
+    return supplementQRCode(qrCode, graphal);
+}
+
+async function supplementQRCode(qrCode, graphal){
+    const qrCodeImagePromise = getQrcodeImage(qrCode.id);
+    
+    const response = graphal(
+        `
+        query supplementQRCode($id: ID!) {
+            product(id: $id) {
+              title
+              images(first: 1) {
+                nodes {
+                  altText
+                  url
+                }
+              }
+            }
+          }
+        `,
+        {
+            variables: {
+                id: qrCode.productId
+            }
+        }
+    );
+    const { data: { product } } = await response.json();
+    return {
+        ...qrCode,
+        productDeleted: ! product ?. title,
+        productTitle: product ?. title,
+        productImage: product ?. images ?. nodes[0] ?. url,
+        productAlt: product ?. images ?. nodes[0] ?. altText,
+        destinationUrl: getDestinationUrl(qrCode),
+        image: await qrCodeImagePromise,
+    };
+}
+
+function getDestinationUrl(qrCode){
+    if(qrCode.destinationUrl === "product"){
+        return `https://${qrCode.shop}/product/${qrCode.productHandle}`;
+    }
+}
