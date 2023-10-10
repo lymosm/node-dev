@@ -12,6 +12,16 @@ export const loader = async ({request}) => {
     return json({ qrcodes });
 }
 
+function truncate(str, {length = 25} = {}){
+    if(! str){
+        return "";
+    }
+    if(str.length <= length){
+        return str;
+    }
+    return str.slice(0, length) + "...";
+}
+
 const EmptyQRState = ({onAction}) => (
     <EmptyState
         heading="Create unique qrcode for your product"
@@ -37,8 +47,31 @@ const QRTable = ({qrcodes}) => (
         ]
         }
     >
+        {qrcodes.map((qrcode) => (
+            <QRTableRow key={qrcode.id} qrcode={qrcode} />
+        ))}
 
     </IndexTable>
+);
+
+const QRTableRow = ({qrcode}) => (
+    <IndexTable.Row id={qrcode.id} position={qrcode.id}>
+        <IndexTable.Cell>
+
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+            
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+            
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+            {new Date(qrcode.Created).toDateString()}
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+            {qrcode.scans}
+        </IndexTable.Cell>
+    </IndexTable.Row>
 );
 
 export default function Index(){

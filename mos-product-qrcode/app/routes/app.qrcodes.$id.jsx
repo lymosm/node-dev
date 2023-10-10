@@ -1,12 +1,14 @@
 import {useState} from "react";
 import { useLoaderData, useNavigate, useNavigation, useSubmit } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Page, Button, Text, Bleed, TextField, Card, Layout, EmptyState, PageActions, VerticalStack, 
     Divider,
     HorizontalStack, 
+    Thumbnail,
     ChoiceList} from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 import { getQrcode } from "../models/QRCode.server";
+import db from "../db.server";
 
 export async function loader ({request, params}){
 
@@ -22,11 +24,50 @@ export async function loader ({request, params}){
     return json(await getQrcode(Number(params.id), admin.graphql));
 }
 
+export async function action( { request, params } ){
+    const { session } = await authenticate.admin(request);
+    const { shop } = session;
+
+    const data = {
+        ...Object.fromEntries(await request.formData())
+    };
+
+    if(data.action === "delete"){
+        await db.qRcode.delete({where: {id: Number(params.id)}});
+        return redirect("/app");
+    }
+
+    const qrcode = params.id === "new"? await db.qRcode.create({data}) : await db.qRCode.update({where: {id: Number(parmas.id)}, data});
+    return redirect(`/app/qrcodes/${qrcode.id}`);
+}
+
 export default function QRCodeForm(){
     const navigate = useNavigate();
     const nav = useNavigation();
     const qrcode = useLoaderData();
     const [ formState, setFormState ] = useState(qrcode);
+
+
+    async function selectProduct(){
+        const products = await window.shopify.resourcePicker({
+            type: "product",
+            action: "select"
+        });
+
+        if(products){
+            const { images, id, variants, title, handle } = products[0];
+
+            setFormState({
+                ...formState,
+                productId: id,
+                productVariantId: variants[0].id,
+                productTitle: title,
+                productHandle: handle,
+                productAlt: images[0]?.altText,
+                productImage: images[0]?.originalSrc,
+            });
+        }
+    }
 
     const submit = useSubmit();
 
@@ -55,6 +96,9 @@ export default function QRCodeForm(){
                                 </Text>
                                 <TextField 
                                 id="title" 
+                                label="title"
+                                labelHidden
+                                autoComplete="off"
                                 helpText="Only daff"
                                 />
                             </VerticalStack>
@@ -68,18 +112,24 @@ export default function QRCodeForm(){
                                     </Text>
                                 
                                 </HorizontalStack>
-                                <HorizontalStack>
-                                    <Text as="h2">
-                                        {formState.productTitle}
-                                    </Text>
-                                
-                                </HorizontalStack>
-                                <VerticalStack>
-                                    <Button>
-                                        Select Product
-                                    </Button>
-                                
-                                </VerticalStack>
+
+                                {formState.productId ? (
+                                    <HorizontalStack>
+                                        <Thumbnail
+                                            source={formState.productImage}
+                                            alt={formState.productAlt}
+                                        />
+                                        <Text as="span">
+                                            {formState.productTitle}
+                                        </Text>
+                                    
+                                    </HorizontalStack>) : (
+                                    <VerticalStack>
+                                        <Button onClick={selectProduct}>
+                                            Select Product
+                                        </Button>
+                                    
+                                    </VerticalStack> )}
 
                                 <Bleed marginInline="20">
                                     <Divider/>
