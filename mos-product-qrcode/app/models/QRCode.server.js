@@ -60,8 +60,9 @@ async function supplementQRCode(qrCode, graphal){
     };
 }
 
-function getDestinationUrl(qrCode){
+export function getDestinationUrl(qrCode){
     if(qrCode.destinationUrl === "product"){
         return `https://${qrCode.shop}/product/${qrCode.productHandle}`;
     }
+    return "";
 }
