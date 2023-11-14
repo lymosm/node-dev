@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://volunteer-casino-turns-knows.trycloudflare.com"
+application_url = "https://problem-against-hydrocodone-non.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://volunteer-casino-turns-knows.trycloudflare.com/auth/callback",
-  "https://volunteer-casino-turns-knows.trycloudflare.com/auth/shopify/callback",
-  "https://volunteer-casino-turns-knows.trycloudflare.com/api/auth/callback"
+  "https://problem-against-hydrocodone-non.trycloudflare.com/auth/callback",
+  "https://problem-against-hydrocodone-non.trycloudflare.com/auth/shopify/callback",
+  "https://problem-against-hydrocodone-non.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
