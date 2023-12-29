@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { useLoaderData, useNavigate, useNavigation, useSubmit } from "@remix-run/react";
+import { useLoaderData, useNavigate, useNavigation, useSubmit, useActionData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { Page, Button, Text, Bleed, TextField, Card, Layout, EmptyState, PageActions, VerticalStack, 
     Divider,
@@ -29,19 +29,23 @@ export async function action( { request, params } ){
     const { shop } = session;
 
     const data = {
-        ...Object.fromEntries(await request.formData())
+        ...Object.fromEntries(await request.formData()),
+        shop
     };
 
     if(data.action === "delete"){
         await db.qRcode.delete({where: {id: Number(params.id)}});
         return redirect("/app");
     }
-
-    const qrcode = params.id === "new"? await db.qRcode.create({data}) : await db.qRCode.update({where: {id: Number(parmas.id)}, data});
+    console.log("kkkkkkkkkkkk");
+    console.log(data);
+    
+    const qrcode = params.id === "new"? await db.qRCode.create({data}) : await db.qRCode.update({where: {id: Number(parmas.id)}, data});
     return redirect(`/app/qrcodes/${qrcode.id}`);
 }
 
 export default function QRCodeForm(){
+    const errors = useActionData()?.errors || {};
     const navigate = useNavigate();
     const nav = useNavigation();
     const qrcode = useLoaderData();
@@ -53,10 +57,8 @@ export default function QRCodeForm(){
             type: "product",
             action: "select"
         });
-
         if(products){
             const { images, id, variants, title, handle } = products[0];
-
             setFormState({
                 ...formState,
                 productId: id,
@@ -73,7 +75,11 @@ export default function QRCodeForm(){
 
     function handleSave(){
         const data = {
-            title:  formState.title
+            title:  formState.title,
+            productId: formState.productId || "",
+            productHandle: formState.productHandle || "",
+            productVariantId: formState.productVariantId || "",
+            destination: formState.destination
         };
         submit(data, {method: "post"});
     }
@@ -99,8 +105,12 @@ export default function QRCodeForm(){
                                 label="title"
                                 labelHidden
                                 autoComplete="off"
-                                helpText="Only daff"
+                                helpText="Only daff bbb"
+                                value={formState.title}
+                                onChange={(title) => setFormState({ ...formState, title })}
+                                error={errors.title}
                                 />
+                                
                             </VerticalStack>
                         </Card>
                         
@@ -141,14 +151,17 @@ export default function QRCodeForm(){
                                         selected={[formState.destination]}
                                         choices={[
                                             {
-                                                label: "Link to product page",
+                                                label: "Link to product pagexxx",
                                                 value: "product"
                                             },
                                             {
                                                 label: "Link to checkout page with cart",
                                                 value: "cart"
                                             }
-                                        ]} />
+                                        ]}
+                                        onChange={(destination) => setFormState({...formState, destination: destination[0]})}
+                                        error={errors.destination}
+                                        />
                                 </HorizontalStack>
                             </VerticalStack>
                         </Card>

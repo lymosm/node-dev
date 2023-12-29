@@ -12,7 +12,7 @@ export async function getQRcodes(shop, graphal){
         where: { shop },
         orderBy: { id: "desc" }
     });
-    return [];
+    return qrcodes;
 }
 
 export async function getQrcode(id, graphal){

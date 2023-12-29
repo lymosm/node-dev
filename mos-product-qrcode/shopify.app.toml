@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://problem-against-hydrocodone-non.trycloudflare.com"
+application_url = "https://reflect-commander-treo-iowa.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://problem-against-hydrocodone-non.trycloudflare.com/auth/callback",
-  "https://problem-against-hydrocodone-non.trycloudflare.com/auth/shopify/callback",
-  "https://problem-against-hydrocodone-non.trycloudflare.com/api/auth/callback"
+  "https://reflect-commander-treo-iowa.trycloudflare.com/auth/callback",
+  "https://reflect-commander-treo-iowa.trycloudflare.com/auth/shopify/callback",
+  "https://reflect-commander-treo-iowa.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
