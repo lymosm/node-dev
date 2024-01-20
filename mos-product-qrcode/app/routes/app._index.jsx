@@ -1,9 +1,10 @@
-import { Page, IndexTable, Layout, Card, EmptyState } from "@shopify/polaris";
+import { Page, IndexTable, Layout, Card, EmptyState, Thumbnail, Icon, Text, LegacyStack, Link } from "@shopify/polaris";
 import { json } from "@remix-run/node";
 import { useNavigate, useLoaderData } from "@remix-run/react";
 
 import { authenticate } from "../shopify.server";
 import { getQRcodes } from "../models/QRCode.server";
+import { ImageMajor, DiamondAlertMajor } from "@shopify/polaris-icons";
 
 export const loader = async ({request}) => {
     const { admin, session } = await authenticate.admin(request);
@@ -56,16 +57,31 @@ const QRTable = ({qrcodes}) => (
 const QRTableRow = ({qrcode}) => (
     <IndexTable.Row id={qrcode.id} position={qrcode.id}>
         <IndexTable.Cell>
-
+            <Thumbnail
+                source={qrcode.productImage || ImageMajor}
+                alt={qrcode.productTitle}
+                size="small"
+            />
         </IndexTable.Cell>
         <IndexTable.Cell>
-            
+            <Link url={`qrcodes/${qrcode.id}`}>{qrcode.title}</Link>
         </IndexTable.Cell>
         <IndexTable.Cell>
-            
+            {qrcode.productDeleted ? (
+                <LegacyStack>
+                    <span>
+                        <Icon source="DiamondAlertMajor"/>
+                    </span>
+                    <Text as="span">
+                        product has benn deleted
+                    </Text>
+                </LegacyStack>
+            ) : (
+                truncate(qrcode.productTitle)
+            )}
         </IndexTable.Cell>
         <IndexTable.Cell>
-            {new Date(qrcode.Created).toDateString()}
+            {new Date(qrcode.createdAt).toDateString()}
         </IndexTable.Cell>
         <IndexTable.Cell>
             {qrcode.scans}

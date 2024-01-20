@@ -12,7 +12,7 @@ export async function getQRcodes(shop, graphal){
         where: { shop },
         orderBy: { id: "desc" }
     });
-    return qrcodes;
+    return Promise.all( qrcodes.map((qrcode) => supplementQRCode(qrcode, graphal)));
 }
 
 export async function getQrcode(id, graphal){
@@ -27,21 +27,20 @@ export async function getQrcode(id, graphal){
 
 async function supplementQRCode(qrCode, graphal){
     const qrCodeImagePromise = getQrcodeImage(qrCode.id);
-    
-    const response = graphal(
+    const response = await graphal(
         `
-        query supplementQRCode($id: ID!) {
-            product(id: $id) {
-              title
-              images(first: 1) {
-                nodes {
-                  altText
-                  url
-                }
-              }
+      query supplementQRCode($id: ID!) {
+        product(id: $id) {
+          title
+          images(first: 1) {
+            nodes {
+              altText
+              url
             }
           }
-        `,
+        }
+      }
+    `,
         {
             variables: {
                 id: qrCode.productId

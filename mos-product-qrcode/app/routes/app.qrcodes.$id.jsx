@@ -37,10 +37,8 @@ export async function action( { request, params } ){
         await db.qRcode.delete({where: {id: Number(params.id)}});
         return redirect("/app");
     }
-    console.log("kkkkkkkkkkkk");
-    console.log(data);
     
-    const qrcode = params.id === "new"? await db.qRCode.create({data}) : await db.qRCode.update({where: {id: Number(parmas.id)}, data});
+    const qrcode = params.id === "new"? await db.qRCode.create({data}) : await db.qRCode.update({where: {id: Number(params.id)}, data});
     return redirect(`/app/qrcodes/${qrcode.id}`);
 }
 
