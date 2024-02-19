@@ -2,7 +2,7 @@
 
 name = "product-qrcode"
 client_id = "517e6641383bd263cbe3e907fdcbc0e2"
-application_url = "https://ed-arrest-grab-stickers.trycloudflare.com"
+application_url = "https://gazette-matched-eight-apache.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ed-arrest-grab-stickers.trycloudflare.com/auth/callback",
-  "https://ed-arrest-grab-stickers.trycloudflare.com/auth/shopify/callback",
-  "https://ed-arrest-grab-stickers.trycloudflare.com/api/auth/callback"
+  "https://gazette-matched-eight-apache.trycloudflare.com/auth/callback",
+  "https://gazette-matched-eight-apache.trycloudflare.com/auth/shopify/callback",
+  "https://gazette-matched-eight-apache.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
