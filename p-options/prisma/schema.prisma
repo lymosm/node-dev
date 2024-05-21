@@ -20,3 +20,17 @@ model Session {
   accessToken String
   userId      BigInt?
 }
+
+model po_option {
+  id Int @id @default(autoincrement())
+  shop String 
+  option_name String @default("")
+  price String @default("")
+  added_time DateTime @default(now())
+}
+
+model po_option_product {
+  id Int @id @default(autoincrement())
+  product_id String @default("")
+  option_id Int @default(0) 
+}
