@@ -11,6 +11,15 @@ export const action = async({ request }) => {
         shop
     };
     console.log("data", data);
+    if(typeof data.action != "undefined" && data.action == "delete"){
+        const status = await db.po_option.delete({
+            where: {
+                id: Number(data.id)
+            }
+        });
+        return redirect("/app");
+    }
+
     delete data.added_time;
 
     if(typeof data.id !== "undefined" && data.id != "" && data.id !== null){

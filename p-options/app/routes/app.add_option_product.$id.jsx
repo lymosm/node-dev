@@ -2,33 +2,45 @@ import { Select, Page, Card, Form, Button, Text, TextField, Layout } from "@shop
 import { useState, useCallback } from "react";
 import { useLoaderData, useSubmit } from "@remix-run/react";
 import { getOptionList } from "./option_list";
+import { getProductOptionById } from "./option_product";
+import { json } from "@remix-run/node";
 
-export const loader = ({request, params}) => {
-    const options = getOptionList();
-    return options;
+export const loader = async ({request, params}) => {
+    const options = await getOptionList();
+    const id = params.id;
+    var data = {};
+    if(id == "" || id == null || id == "0"){
+        data = {
+            option_id: "0",
+            product_id: ""
+        };
+    }else{
+        data = await getProductOptionById(id);
+    }
+    return json({
+        options: options,
+        data: data
+    });
 };
 
 export default function Index() {
 
-    const optionss = useLoaderData();
+    const loader_data = useLoaderData();
+    const options = loader_data.options;
+    const data = loader_data.data;
     var arr = [
         {
             label: "Select Option",
             value: "0"
         }
     ];
-    optionss.map(function(a, index){
+    data.option_id = String(data.option_id);
+    options.map(function(a, index){
         arr.push({label: a.option_name, value: String(a.id)});
     });
     // set_option_list(arr);
    // useCallback((arr) => set_option_list(arr));
  
-    
-    const data = {
-        option_id: "0",
-        product_id: "",
-        product_name: ""
-    };
     const [form, setFormState] = useState(data);
     // const [option_id, setSelected] = useState("0");
 

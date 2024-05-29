@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { NavMenu } from "@shopify/app-bridge-react";
 
 export default function App() {
   return (
@@ -22,6 +23,10 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <NavMenu>
+          <a href="/app">Option List</a>
+          <a href="/app/product_option_list">Product Option List</a>
+        </NavMenu>
         <Outlet />
         <ScrollRestoration />
         <LiveReload />

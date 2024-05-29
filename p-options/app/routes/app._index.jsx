@@ -1,10 +1,9 @@
-import { useActionData, useLoaderData, Link } from "@remix-run/react";
+import { useActionData, useLoaderData, Link, useSubmit } from "@remix-run/react";
 import { Page, Card, DataTable, Banner, Button, IndexTable } from "@shopify/polaris";
 import { getOptionList } from "./option_list";
 // import React from "react";
 import { useEffect, useState} from "react";
-import { Alert } from "../component/alert";
-import Test from "../component/test";
+import { Alert, ShowAlert } from "../component/alert";
 import { useAppBridge } from "@shopify/app-bridge-react";
 
 export const loader = async ({request}) => {
@@ -14,20 +13,20 @@ export const loader = async ({request}) => {
 
 export default function Index () {
 
-	const data = useActionData();
 	const rows = useLoaderData();
-	// console.log("rows", rows);
 
-	/*
-	const rows = [
-		["1", "222", "333", "444"],
-		["2", "222", "333", "444"]
-	];
-	*/
+	const [delete_id, set_delete_id] = useState(0);
 
-	const [show_alert, set_show_alert] = useState(false);
-	const handleDelete = (id) => {
-		set_show_alert(true);
+	const handleDeleteShow = (id) => {
+		ShowAlert();
+		set_delete_id(id);
+	};
+
+	const submit = useSubmit();
+
+	const handleDelete = () => {
+		console.log("del", delete_id);
+		submit({action: "delete", id: delete_id}, {method: "POST", action: "/option"});
 	};
 	
 	/*
@@ -48,7 +47,7 @@ export default function Index () {
 			<IndexTable.Cell>{added_time}</IndexTable.Cell>
 			<IndexTable.Cell>
 				<Link to={`add_option/${id}`}>Edit</Link>
-				<Button>Delete</Button>
+				<Button onClick={() => handleDeleteShow(id)}>Delete</Button>
 			</IndexTable.Cell>
 		</IndexTable.Row>
 	));
@@ -56,7 +55,7 @@ export default function Index () {
 		<Page>
 			<Banner>
 				<Button url="/app/add_option/0">Add Option</Button>
-				<Alert/>
+				<Alert msg="Delete?" callback={handleDelete}/>
 			</Banner>
 			<Card>
 				<IndexTable
