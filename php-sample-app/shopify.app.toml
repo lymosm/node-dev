@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "1375ed072f7e5546dd7d734d98a035b5"
+name = "php-app"
+handle = "php-app-159"
+application_url = "https://crafts-flesh-cisco-appropriate.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "myapptest1523.myshopify.com"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://crafts-flesh-cisco-appropriate.trycloudflare.com/auth/callback",
+  "https://crafts-flesh-cisco-appropriate.trycloudflare.com/auth/shopify/callback",
+  "https://crafts-flesh-cisco-appropriate.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = false

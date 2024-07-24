@@ -2,10 +2,12 @@
 document.getElementById("ProductInfo-template--18274039005465__main").append("vvvv");
 
 var plugin = {
+  
     getProduct: (t) =>
         new Promise((o, n) => {
+          const url = "https://ben-twiki-bow-haven.trycloudflare.com/";
           o(
-            fetch("/" + `products/${t}.js`)
+            fetch(url + `products/${t}`)
               .then((t) => {
                 if (t.status == "200") return t.json();
                 else null;
@@ -15,4 +17,4 @@ var plugin = {
         })
 };
 
-plugin.getProduct("8888-9999");
+plugin.getProduct("8888-9995559");

@@ -1,0 +1,23 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "cfe659d7b69e53be256d5f7d162dbb72"
+name = "php-app"
+application_url = "https://testimonials-captured-tariff-zambia.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "debug4221.myshopify.com"
+
+[auth]
+redirect_urls = [
+  "https://testimonials-captured-tariff-zambia.trycloudflare.com/auth/callback",
+  "https://testimonials-captured-tariff-zambia.trycloudflare.com/auth/shopify/callback",
+  "https://testimonials-captured-tariff-zambia.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-07"
+
+[pos]
+embedded = false

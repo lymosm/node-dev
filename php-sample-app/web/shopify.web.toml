@@ -1,0 +1,5 @@
+roles = ["backend"]
+
+[commands]
+dev = "d:/web-server/php-8.2/php d:/web-server/php/composer.phar serve"
+build = "composer build"
