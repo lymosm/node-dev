@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:3306/shopify_p_options"
 }
 
 model Session {
