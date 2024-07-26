@@ -2,7 +2,7 @@
 
 client_id = "cfe659d7b69e53be256d5f7d162dbb72"
 name = "php-app"
-application_url = "https://testimonials-captured-tariff-zambia.trycloudflare.com"
+application_url = "https://1122-108-181-24-77.ngrok-free.app"
 embedded = true
 
 [build]
@@ -11,9 +11,9 @@ dev_store_url = "debug4221.myshopify.com"
 
 [auth]
 redirect_urls = [
-  "https://testimonials-captured-tariff-zambia.trycloudflare.com/auth/callback",
-  "https://testimonials-captured-tariff-zambia.trycloudflare.com/auth/shopify/callback",
-  "https://testimonials-captured-tariff-zambia.trycloudflare.com/api/auth/callback"
+  "https://1122-108-181-24-77.ngrok-free.app/auth/callback",
+  "https://1122-108-181-24-77.ngrok-free.app/auth/shopify/callback",
+  "https://1122-108-181-24-77.ngrok-free.app/api/auth/callback"
 ]
 
 [webhooks]
