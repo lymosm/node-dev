@@ -14,9 +14,20 @@ import { useTranslation, Trans } from "react-i18next";
 import { trophyImage } from "../assets";
 
 import { ProductsCard } from "../components";
+// import { useAppQuery, useAuthenticatedFetch } from "../hooks";
+import MetaObject from "../components/MetaObject";
 
 export default function HomePage() {
   const { t } = useTranslation();
+
+  /*
+  const handleGetMetaObject = async function (){
+    const fetch = useAuthenticatedFetch();
+    const responsed = await fetch('/api/metaobjcts', {method: "GET"});
+    console.log(response);
+  }
+    */
+  
   return (
     <Page narrowWidth>
       <TitleBar title={t("HomePage.title")} primaryAction={null} />
@@ -34,6 +45,7 @@ export default function HomePage() {
                   <Text as="h2" variant="headingMd">
                     {t("HomePage.heading")}
                   </Text>
+                  <MetaObject></MetaObject>
                   <p>
                     <Trans
                       i18nKey="HomePage.yourAppIsReadyToExplore"

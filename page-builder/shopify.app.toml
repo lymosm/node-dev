@@ -3,7 +3,7 @@
 client_id = "d1485832ef627a85832eabba069d261a"
 name = "page-builder"
 handle = "page-builder-2"
-application_url = "https://89ae-61-141-73-243.ngrok-free.app"
+application_url = "https://b29b-119-136-207-136.ngrok-free.app"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://89ae-61-141-73-243.ngrok-free.app/auth/callback",
-  "https://89ae-61-141-73-243.ngrok-free.app/auth/shopify/callback",
-  "https://89ae-61-141-73-243.ngrok-free.app/api/auth/callback"
+  "https://b29b-119-136-207-136.ngrok-free.app/auth/callback",
+  "https://b29b-119-136-207-136.ngrok-free.app/auth/shopify/callback",
+  "https://b29b-119-136-207-136.ngrok-free.app/api/auth/callback"
 ]
 
 [webhooks]
