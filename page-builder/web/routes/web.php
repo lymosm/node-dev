@@ -18,6 +18,7 @@ use Shopify\Exception\InvalidWebhookException;
 use Shopify\Utils;
 use Shopify\Webhooks\Registry;
 use Shopify\Webhooks\Topics;
+use Shopify\Clients\Graphql;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,17 +90,54 @@ Route::get('/api/auth/callback', function (Request $request) {
 Route::get('/api/products/count', function (Request $request) {
     /** @var AuthSession */
     $session = $request->get('shopifySession'); // Provided by the shopify.auth middleware, guaranteed to be active
+    /*
+    return response($session);
+    echo '<pre>'; print_r($session); die;
+     */
+   // error_log(print_r($session, true) . "\r\n", 3, 'debug.log');
+  //  error_log(print_r($request, true) . "\r\n", 3, 'debug.log');
+   
 
     $client = new Rest($session->getShop(), $session->getAccessToken());
     $result = $client->get('products/count');
 
+    $client = new Graphql($session->getShop(), $session->getAccessToken());
+    $query = <<<QUERY
+    mutation CreateMetaobject($metaobject: MetaobjectCreateInput!) {
+        metaobjectCreate(metaobject: $metaobject) {
+        metaobject {
+            handle
+            season: field(key: "season") {
+            value
+            }
+        }
+        userErrors {
+            field
+            message
+            code
+        }
+        }
+    }
+    QUERY;
+
+    $variables = [
+    "metaobject" => [
+        "type" => "lookbook",
+        "handle" => "winter-2023",
+        "fields" => [["key"=>"season", "value"=>"winter"]],
+    ],
+    ];
+
+    $response = $client->query(["query" => $query, "variables" => $variables]);
+    error_log(print_r($response, true) . "\r\n", 3, 'debug.log');
+
     return response($result->getDecodedBody());
 })->middleware('shopify.auth');
 
-Route::get('/api/metaobjects', function (Request $request) {
+Route::post('/api/metaobjects', function (Request $request) {
     /** @var AuthSession */
     $session = $request->get('shopifySession'); // Provided by the shopify.auth middleware, guaranteed to be active
-
+    error_log(print_r($session, true) . "\r\n", 3, 'debug.log');
     $client = new Rest($session->getShop(), $session->getAccessToken());
     $result = $client->get('products/count');
 

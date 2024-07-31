@@ -10,7 +10,7 @@ export default function MetaObject(){
   const handleGetMetaObject = async function (){
     alert("sdd");
     
-    const responsed = await fetch('/api/metaobjcts', {method: "GET"});
+    const responsed = await fetch('/api/metaobjcts', {method: "POST"});
     console.log(response);
   }
   return (
