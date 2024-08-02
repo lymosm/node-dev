@@ -20,8 +20,6 @@ class EnsureShopifyInstalled
     public function handle(Request $request, Closure $next)
     {
         $shop = $request->query('shop') ? Utils::sanitizeShopDomain($request->query('shop')) : null;
-        error_log(print_r($shop, true) . "\r\n", 3, 'debug.log');
-        error_log(print_r($shop, true) . "\r\n", 3, 'ddddd-debug.log');
 
         $appInstalled = $shop && Session::where('shop', $shop)->where('access_token', '<>', null)->exists();
         $isExitingIframe = preg_match("/^ExitIframe/i", $request->path());
