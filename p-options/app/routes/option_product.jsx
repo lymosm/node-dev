@@ -50,8 +50,11 @@ export const action = async ({request}) =>{
         {
           variables: {
             "definition": {
+              "access": {
+                "admin": "PRIVATE"
+              },
               "name": "p-option-name",
-              "namespace": "p-option",
+              "namespace": "$app:option8888",
               "key": "p-option-key",
               "description": "A list of option used to make the product.",
               "type": "multi_line_text_field",
