@@ -34,11 +34,12 @@ export const action = async ({request}) =>{
     console.log("edit medium...");
     const response = await admin.graphql(
         `#graphql
-        mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+          mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
           metafieldDefinitionCreate(definition: $definition) {
             createdDefinition {
               id
-              name
+              namespace
+              key
             }
             userErrors {
               field
@@ -48,10 +49,30 @@ export const action = async ({request}) =>{
           }
         }`,
         {
-          variables: {
+          variables: 
+          {
+            "definition": {
+              "name": "My read-only metafield definition",
+              "namespace": "my78app1:some-namespace22",
+              "key": "some-key22",
+              "type": "single_line_text_field",
+              "ownerType": "PRODUCT",
+              "access": {
+                "admin": "MERCHANT_READ"
+              }
+            }
+          }
+          /*
+          {
             "definition": {
               "access": {
-                "admin": "PRIVATE"
+                "admin": "MERCHANT_READ_WRITE",
+                // "customerAccount": "READ_WRITE",
+                "grants": {
+                  "access": "READ_WRITE",
+                  "grantee": "aaaaa"
+                },
+                "storefront": "PUBLIC_READ"
               },
               "name": "p-option-name",
               "namespace": "$app:option8888",
@@ -61,6 +82,7 @@ export const action = async ({request}) =>{
               "ownerType": "PRODUCT"
             }
           },
+          */
         },
       );
       

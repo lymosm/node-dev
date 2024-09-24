@@ -2,7 +2,7 @@
 
 client_id = "d1485832ef627a85832eabba069d261a"
 name = "page-builder"
-application_url = "https://fisheries-indicators-filter-tragedy.trycloudflare.com"
+application_url = "https://rid-modern-computers-than.trycloudflare.com"
 embedded = true
 
 [build]
@@ -12,13 +12,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_content,read_metaobjects,write_content,write_metaobject_definitions,write_metaobjects,write_products,write_product_listings"
+scopes = "read_content,read_metaobjects,read_product_listings,read_products,write_content,write_metaobject_definitions,write_metaobjects,write_product_listings,write_products"
 
 [auth]
 redirect_urls = [
-  "https://fisheries-indicators-filter-tragedy.trycloudflare.com/auth/callback",
-  "https://fisheries-indicators-filter-tragedy.trycloudflare.com/auth/shopify/callback",
-  "https://fisheries-indicators-filter-tragedy.trycloudflare.com/api/auth/callback"
+  "https://rid-modern-computers-than.trycloudflare.com/auth/callback",
+  "https://rid-modern-computers-than.trycloudflare.com/auth/shopify/callback",
+  "https://rid-modern-computers-than.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
