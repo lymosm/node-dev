@@ -1,0 +1,25 @@
+<button is="party-button4" class="op-btn">
+  <span class="visuallys">Start the party!</span>
+</button>
+{% assign avg_rating = block.settings.product.metafields.demo.avg_rating.value | round %}
+<span style="color:{{ block.settings.colour }}">ssss
+  {% render 'stars', rating: avg_rating %}
+</span>
+{% if avg_rating >= 4 %}
+  <br>yyyyrrrrr here is block
+  <img src="{{ "thumbs-up.png" | asset_img_url: '15x' }}" height="15" width="15" loading="lazy">
+  {{ 'ratings.home.recommendationText' | t }}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Embed Test",
+  "target": "body",
+  "javascript": "main.js",
+  "stylesheet": "main.css",
+  "settings": [
+
+  ]
+}
+{% endschema %}
+

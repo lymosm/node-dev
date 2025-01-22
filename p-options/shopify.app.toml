@@ -1,23 +1,28 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "c44e0cf7b4ae93878bc11667ceef54ad"
-name = "p-options"
-application_url = "https://mpg-acne-records-gourmet.trycloudflare.com"
+application_url = "https://illustrated-casting-lang-sides.trycloudflare.com"
 embedded = true
+name = "p-options"
+handle = "p-options-1"
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "debug4221.myshopify.com"
 
-[auth]
-redirect_urls = [
-  "https://mpg-acne-records-gourmet.trycloudflare.com/auth/callback",
-  "https://mpg-acne-records-gourmet.trycloudflare.com/auth/shopify/callback",
-  "https://mpg-acne-records-gourmet.trycloudflare.com/api/auth/callback"
-]
-
 [webhooks]
 api_version = "2024-07"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [
+  "https://illustrated-casting-lang-sides.trycloudflare.com/auth/callback",
+  "https://illustrated-casting-lang-sides.trycloudflare.com/auth/shopify/callback",
+  "https://illustrated-casting-lang-sides.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false
