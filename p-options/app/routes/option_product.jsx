@@ -52,14 +52,25 @@ export const action = async ({request}) =>{
           variables: 
           {
             "definition": {
+              /*
+              "access": {
+                "admin": "MERCHANT_READ_WRITE",
+                // "customerAccount": "READ_WRITE",
+                /*
+                "grants": {
+                  "access": "READ_WRITE",
+                  "grantee": "aaaaa"
+                },
+                
+                "storefront": "PUBLIC_READ"
+              },
+              */
               "name": "My read-only metafield definition",
-              "namespace": "my78app1:some-namespace22",
-              "key": "some-key22",
+              "namespace": "some-namespace22",
+              "key": "some-key223",
               "type": "single_line_text_field",
               "ownerType": "PRODUCT",
-              "access": {
-                "admin": "MERCHANT_READ"
-              }
+              
             }
           }
           /*
@@ -87,7 +98,7 @@ export const action = async ({request}) =>{
       );
       
       const data = await response.json();
-      console.log("metafield definition response: ", data);
+      console.log("metafield definition response: ", data.data.metafieldDefinitionCreate);
 
     return redirect("/app/product_option_list");
 };
