@@ -1,18 +1,15 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "c44e0cf7b4ae93878bc11667ceef54ad"
-application_url = "https://alert-gras-plants-fisher.trycloudflare.com"
-embedded = true
 name = "p-options"
 handle = "p-options-1"
+application_url = "https://unity-delayed-maker-chairs.trycloudflare.com"
+embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "debug4221.myshopify.com"
 include_config_on_deploy = true
-
-[webhooks]
-api_version = "2024-07"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -20,10 +17,13 @@ scopes = "read_content,read_metaobjects,read_product_listings,read_products,writ
 
 [auth]
 redirect_urls = [
-  "https://alert-gras-plants-fisher.trycloudflare.com/auth/callback",
-  "https://alert-gras-plants-fisher.trycloudflare.com/auth/shopify/callback",
-  "https://alert-gras-plants-fisher.trycloudflare.com/api/auth/callback"
+  "https://unity-delayed-maker-chairs.trycloudflare.com/auth/callback",
+  "https://unity-delayed-maker-chairs.trycloudflare.com/auth/shopify/callback",
+  "https://unity-delayed-maker-chairs.trycloudflare.com/api/auth/callback"
 ]
+
+[webhooks]
+api_version = "2024-07"
 
 [pos]
 embedded = false
