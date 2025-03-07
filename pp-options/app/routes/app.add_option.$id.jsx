@@ -10,7 +10,7 @@ import {
 	Button,
   } from "@shopify/polaris";
 import { useState, useCallback } from "react";
-import { useSubmit, useLoaderData } from "@remix-run/react";
+import { useSubmit, useLoaderData, useNavigate } from "@remix-run/react";
 import { authenticate } from "../shopify.server";
 import { json } from "@remix-run/node";
 import { getOptionById } from "./api.option";
@@ -57,7 +57,7 @@ export default function addOptionPage() {
   */
  const [form, setFormState] = useState(data); 
  console.log("form", form);
-
+ const navigate = useNavigate();
  const handleOptionNameChange = useCallback((option_name) => setFormState({...form, option_name}));
  const handlePriceChange = useCallback((price) => setFormState({...form, price}));
 
@@ -71,6 +71,8 @@ export default function addOptionPage() {
   formData.append("id", (typeof form.id == "undefined" || form.id == "undefined") ? "" : form.id);
   formData.append("price", form.price);
   formData.append("shop", form.shop);
+
+  
 
   const handleSubmit = async () => {
     // setLoading(true);
@@ -86,10 +88,14 @@ export default function addOptionPage() {
       });
       const result = await response.json();
       // setData(result);
+      console.log(result);
+      alert("success");
+      navigate("/app");
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       // setLoading(false);
+
     }
   };
 

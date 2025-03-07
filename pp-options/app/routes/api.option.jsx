@@ -32,6 +32,7 @@ export const action = async({ request }) => {
         delete data.shop;
         const status = await db.po_option.update({data: data, where: where});
     }else{
+        delete data.id;
         const status = await db.po_option.create({data});
     }
     
