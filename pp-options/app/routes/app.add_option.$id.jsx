@@ -67,7 +67,8 @@ export default function addOptionPage() {
   const formData = new FormData;
   formData.append("added_time", form.added_time);
   formData.append("option_name", form.option_name);
-  formData.append("id", form.id);
+  const id = 
+  formData.append("id", (typeof form.id == "undefined" || form.id == "undefined") ? "" : form.id);
   formData.append("price", form.price);
   formData.append("shop", form.shop);
 
@@ -76,9 +77,11 @@ export default function addOptionPage() {
     try {
       const response = await fetch("/api/option",  {
         method: "POST",
+        /*
         headers: {
           "Content-Type": "application/x-www-form-urlencoded", // 设置请求头
         },
+        */
         body: formData, // 发送  数据
       });
       const result = await response.json();

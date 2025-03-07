@@ -1,4 +1,4 @@
-import { objectEnumNames } from "@prisma/client/runtime/library";
+// import { objectEnumNames } from "@prisma/client/runtime/library";
 import db from "../db.server";
 import { authenticate } from "../shopify.server";
 import { redirect } from "@remix-run/node";
