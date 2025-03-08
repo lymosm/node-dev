@@ -1,7 +1,7 @@
 import db from "../db.server";
 import { useState } from "react";
-import { getProductOptionList } from "./option_product";
-import { useLoaderData, useSubmit } from "@remix-run/react";
+import { getProductOptionList } from "./api.option_product";
+import { useLoaderData, useSubmit, useNavigate } from "@remix-run/react";
 import { Banner, Page, Card, IndexTable, Button } from "@shopify/polaris";
 import { Link } from "@remix-run/react";
 import { Alert, ShowAlert } from "../component/alert";
@@ -18,18 +18,38 @@ export const loader = async({request, params}) => {
 
 export default function Index(){
     const list = useLoaderData();
-
+    const navigate = useNavigate();
     const [delete_id, set_delete_id] = useState(0);
-
+    const formData = new FormData;
+    formData.append("id", delete_id);
+    formData.append("action", "delete");
     const handleDeleteShow = (id) => {
         set_delete_id(id);
+        
+
         ShowAlert();
     }
     const submit = useSubmit();
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
 
-        submit({action: "delete", id: delete_id}, {method: "POST", action: "/option_product"});
+        // submit({action: "delete", id: delete_id}, {method: "POST", action: "/option_product"});
+        console.log(formData);
+        try {
+            const response = await fetch("/api/option_product",  {
+              method: "POST",
+              body: formData, // 发送  数据
+            });
+            const result = await response.json();
+            // setData(result);
+            alert("success");
+            navigate("/app/product_option_list");
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          } finally {
+            // setLoading(false);
+      
+          }
     }
 
     const rowMakeup = list.map(({id, option_id, product_id}, index) => (

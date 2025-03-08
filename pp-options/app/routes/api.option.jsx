@@ -18,7 +18,8 @@ export const action = async({ request }) => {
                 id: Number(data.id)
             }
         });
-        return redirect("/app");
+       // return redirect("/app");
+       return Response.json({"success": true});
     }
 
     delete data.added_time;

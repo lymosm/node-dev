@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "96517be1441f4755a855bc64b3a8df67"
-application_url = "https://clark-coating-particular-compete.trycloudflare.com"
+application_url = "https://plus-ipaq-ocean-cap.trycloudflare.com"
 embedded = true
 name = "pp-options"
 handle = "pp-options-1"
@@ -23,9 +23,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://clark-coating-particular-compete.trycloudflare.com/auth/callback",
-  "https://clark-coating-particular-compete.trycloudflare.com/auth/shopify/callback",
-  "https://clark-coating-particular-compete.trycloudflare.com/api/auth/callback"
+  "https://plus-ipaq-ocean-cap.trycloudflare.com/auth/callback",
+  "https://plus-ipaq-ocean-cap.trycloudflare.com/auth/shopify/callback",
+  "https://plus-ipaq-ocean-cap.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

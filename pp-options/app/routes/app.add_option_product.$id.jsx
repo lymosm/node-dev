@@ -1,8 +1,8 @@
 import { Select, Page, Card, Form, Button, Text, TextField, Layout } from "@shopify/polaris";
 import { useState, useCallback } from "react";
-import { useLoaderData, useSubmit } from "@remix-run/react";
-import { getOptionList } from "./option_list";
-import { getProductOptionById } from "./option_product";
+import { useLoaderData, useSubmit, useNavigate } from "@remix-run/react";
+import { getOptionList } from "./api.option_list";
+import { getProductOptionById } from "./api.option_product";
 import { json } from "@remix-run/node";
 
 export const loader = async ({request, params}) => {
@@ -24,6 +24,7 @@ export const loader = async ({request, params}) => {
 };
 
 export default function Index() {
+    const navigate = useNavigate();
 
     const loader_data = useLoaderData();
     const options = loader_data.options;
@@ -65,7 +66,40 @@ export default function Index() {
     }
 
 
-    const handleSubmit = () => submit(form, {method: "POST", action: "/option_product"});
+    const formData = new FormData;
+    // formData.append("added_time", form.added_time);
+    formData.append("option_id", form.option_id);
+    formData.append("id", (typeof form.id == "undefined" || form.id == "undefined") ? "" : form.id);
+    formData.append("product_id", (typeof form.product_id == "undefined" || form.product_id == "undefined") ? "" : form.product_id);
+    formData.append("product_name", form.product_name);
+    // formData.append("shop", form.shop);
+
+    // const handleSubmit = () => submit(form, {method: "POST", action: "/api/option_product"});
+
+    const handleSubmit = async () => {
+        // setLoading(true);
+        try {
+          const response = await fetch("/api/option_product",  {
+            method: "POST",
+            /*
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded", // 设置请求头
+            },
+            */
+            body: formData, // 发送  数据
+          });
+          const result = await response.json();
+          // setData(result);
+          console.log(result);
+          alert("success");
+          navigate("/app/product_option_list");
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          // setLoading(false);
+    
+        }
+      };
     return (
         <Page>
             <Card>
@@ -84,7 +118,7 @@ export default function Index() {
                     </Button>
                     <Layout>
                         <Layout.Section>
-                            <Button submit>Save</Button>
+                            <Button onClick={handleSubmit}>Save</Button>
                         </Layout.Section>
                         
                     </Layout>  
