@@ -1,6 +1,8 @@
 import db from "../db.server";
 import { authenticate } from "../shopify.server";
 import { redirect } from "@remix-run/node";
+import { createMetafield, createDefinition, getDefinitions } from "../lib/metafield";
+import { getOptionById } from "./api.option";
 
 export const action = async ({request}) =>{
     console.log("edit in...");
@@ -31,42 +33,47 @@ export const action = async ({request}) =>{
     }else{
         delete params.id;
         const status = await db.po_option_product.create({data: params});
+
+        
     }
     console.log("edit medium...");
-    /*
-    const response = await admin.graphql(
-        `#graphql
-          mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
-          metafieldDefinitionCreate(definition: $definition) {
-            createdDefinition {
-              id
-              namespace
-              key
-            }
-            userErrors {
-              field
-              message
-              code
-            }
+
+    const key = "pp_product_options";
+        const namespace = "pp_options";
+        const type = "json";
+        const ownerType = "PRODUCT";
+        const access = {
+          "storefront": "PUBLIC_READ"
+        };
+        const name = "ppProductOption";
+        const old = await getDefinitions(admin, {"ownerType": ownerType, "key": key});
+        console.log(old.data.metafieldDefinitions.edges);
+        if(old.data.metafieldDefinitions.edges.length == 0){
+          await createDefinition(admin, {"definition": {
+            "key": key,
+            "namespace": namespace,
+            "type": type,
+            "access": access,
+            "ownerType": ownerType,
+            "name": name
+          }});
+        }
+
+        const option_data = await getOptionById(params.option_id);
+        console.log(option_data);
+        const option_data_val = JSON.stringify(option_data);
+
+        const product_metafield = {
+          "metafields": {
+            "key": key,
+            "namespace": namespace,
+            "ownerId": params.product_id,
+            "type": type,
+            "value": option_data_val
           }
-        }`,
-        {
-          variables: 
-          {
-            "definition": {
-              "name": "My read-only metafield definition",
-              "namespace": "some-namespace22",
-              "key": "some-key223",
-              "type": "single_line_text_field",
-              "ownerType": "PRODUCT",
-              
-            }
-          }
-        },
-      );
-      const data = await response.json();
-      */
-      
+        };
+        const meta = await createMetafield(admin, product_metafield);
+        console.log(meta.data.metafieldsSet.metafields);
     
     return Response.json({"success": true});
     // return redirect("/app/product_option_list");

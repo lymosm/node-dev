@@ -1,0 +1,21 @@
+<span style="color: {{ block.settings.color }}">
+<p>Select options</p>
+
+{% assign json_string = product.metafields.pp_options.pp_product_options %} 
+
+
+<input type="checkbox" name="pp_option_1" value="">{{ json_string.option_name }} ${{ json_string.price }}
+</span>
+888
+{% render "app_snippet" %}
+{% schema %}
+  {
+    "name": "pp-product-options",
+    "target": "section",
+    "stylesheet": "app.css",
+    "javascript": "app.js",
+    "settings": [
+        { "label": "Color", "id": "color", "type": "color", "default": "#000000" }
+    ]
+  }
+{% endschema %}

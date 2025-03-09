@@ -51,7 +51,7 @@ export const createDefinition = async (admin, variables) => {
  */
 export const getDefinitions = async (admin, variables) => {
     const response = await admin.graphql(
-        `query { metafieldDefinitions(first: 250, ownerType: $ownerType, query: $query) { edges { node { name } } } }`,
+        `query definitions ($ownerType: MetafieldOwnerType!, $key: String, $query: String) { metafieldDefinitions(first: 250, ownerType: $ownerType, key: $key, query: $query) { edges { node { name } } } }`,
         {
           variables: variables
           
