@@ -3,10 +3,23 @@
 
 {% assign json_string = product.metafields.pp_options.pp_product_options %} 
 
+{% comment %}
+{% assign json_object = json_string | parse_json %}
+{% endcomment %}
 
-<input type="checkbox" name="pp_option_1" value="">{{ json_string.option_name }} ${{ json_string.price }}
+<input type="checkbox" name="pp_option_1" value=""><span id="pp-option-value"></span>
 </span>
-888
+
+{% assign liquid_version = null %}
+{% if shop.liquid_version %}{% assign liquid_version = shop.liquid_version %}
+{% elsif parse_json %} {% comment %}parse_json filter introduced in 5.0{% endcomment %}
+  {% assign liquid_version = '5.0+' %}
+{% else %}
+  {% assign liquid_version = 'Pre-5.0' %}
+{% endif %}
+
+ Current Liquid version: {{ liquid_version }}
+
 {% render "app_snippet" %}
 {% schema %}
   {
@@ -19,3 +32,8 @@
     ]
   }
 {% endschema %}
+<script>
+const option_object = JSON.parse('{{ json_string }}');
+const html = " " + option_object.option_name + ': $' + option_object.price;
+document.getElementById("pp-option-value").innerHTML = html;
+</script>
