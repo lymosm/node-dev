@@ -3,7 +3,11 @@
 client_id = "d1485832ef627a85832eabba069d261a"
 name = "page-builder"
 handle = "page-builder-2"
+<<<<<<< HEAD
 application_url = "https://fb5b-61-141-73-243.ngrok-free.app"
+=======
+application_url = "https://72e6-119-123-132-251.ngrok-free.app"
+>>>>>>> eca8a23222295fb564e894433691f5a69d4320fd
 embedded = true
 
 [build]
@@ -13,13 +17,19 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "read_metaobjects,write_metaobject_definitions,write_metaobjects,write_products"
 
 [auth]
 redirect_urls = [
+<<<<<<< HEAD
   "https://fb5b-61-141-73-243.ngrok-free.app/auth/callback",
   "https://fb5b-61-141-73-243.ngrok-free.app/auth/shopify/callback",
   "https://fb5b-61-141-73-243.ngrok-free.app/api/auth/callback"
+=======
+  "https://72e6-119-123-132-251.ngrok-free.app/auth/callback",
+  "https://72e6-119-123-132-251.ngrok-free.app/auth/shopify/callback",
+  "https://72e6-119-123-132-251.ngrok-free.app/api/auth/callback"
+>>>>>>> eca8a23222295fb564e894433691f5a69d4320fd
 ]
 
 [webhooks]

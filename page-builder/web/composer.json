@@ -53,7 +53,7 @@
         ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "php artisan serve"
+            "/Volumes/app/opt/php/bin/php artisan serve"
         ],
         "react": "npm run watch",
         "lint": "./vendor/bin/phpcs --standard=PSR12 app routes",
