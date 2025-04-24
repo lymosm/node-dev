@@ -1,5 +1,5 @@
 roles = ["backend"]
 
 [commands]
-dev = "composer serve"
+dev = "/Volumes/app/opt/php/bin/php /Volumes/app/opt/php/bin/composer serve"
 build = "composer build"
