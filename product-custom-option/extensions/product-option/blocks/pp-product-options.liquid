@@ -1,0 +1,123 @@
+<span style="color: {{ block.settings.color }}">
+<p>Select options</p>
+
+{% assign json_string = product.metafields.pp_options.pp_product_options %} 
+
+{% comment %}
+{% assign json_object = json_string | parse_json %}
+{% endcomment %}
+
+<input type="checkbox" id="pp_option_1" name="pp_option_1" value=""><span id="pp-option-value"></span>
+</span>
+
+{% assign liquid_version = null %}
+{% if shop.liquid_version %}{% assign liquid_version = shop.liquid_version %}
+{% elsif parse_json %} {% comment %}parse_json filter introduced in 5.0{% endcomment %}
+  {% assign liquid_version = '5.0+' %}
+{% else %}
+  {% assign liquid_version = 'Pre-5.0' %}
+{% endif %}
+
+ Current Liquid version: {{ liquid_version }}
+
+{% render "app_snippet" %}
+{% schema %}
+  {
+    "name": "pp-product-options",
+    "target": "section",
+    "stylesheet": "app.css",
+    "javascript": "app.js",
+    "settings": [
+        { "label": "Color", "id": "color", "type": "color", "default": "#000000" }
+    ]
+  }
+{% endschema %}
+<script>
+const option_object = JSON.parse('{{ json_string }}');
+const html = " " + option_object.option_name + ': $' + option_object.price;
+document.getElementById("pp-option-value").innerHTML = html;
+document.getElementById("pp_option_1").addEventListener("change", function(){
+  const forms = document.querySelectorAll('form[action="/cart/add"]');
+
+  const form = forms[1];
+  if(this.checked){
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'properties[pp_option_1]';
+    input.value = option_object.option_name;
+    form.appendChild(input);
+
+/*
+    form.submit();
+
+    // Add $5 addon product separately  (可以程序自动创建好，后台或者fetch)
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: '41564391735390',  // 替换为你创建的 $5 产品的变体 ID
+        quantity: 1
+      })
+    });
+    */
+
+  }else{
+    const input_obj = document.querySelector('input[name="properties[pp_option_1]"]');
+    form.removeChild(input_obj);
+  }
+});
+
+
+// 重写表单提交
+document.addEventListener('DOMContentLoaded', function() {
+  const formsall = document.querySelectorAll('form[action="/cart/add"]');
+  console.log("pppp", formsall);
+
+  document.querySelectorAll('form[action="/cart/add"]')[1].addEventListener('submit', async function(e) {
+    e.preventDefault(); // 阻止默认提交（避免页面刷新）
+  
+    const formData = new FormData(this);
+  
+    // 提取主商品 variant ID
+    const variantId = formData.get('id');
+  
+    const properties = {};
+    for (let [key, value] of formData.entries()) {
+      if (key.startsWith('properties[')) {
+        properties[key.slice(11, -1)] = value;
+      }
+    }
+  
+    // 加主商品
+    await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: 1,
+        properties: properties
+      })
+    });
+  
+    // 如果勾选了 $5 附加项  此方式用了前端实现。 也可以用 graphql https://shopify.dev/docs/api/storefront/2024-07/mutations/cartLinesAdd 实现
+    if (document.getElementById('pp_option_1').checked) {
+      console.log('add-on $5');
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: 41564391735390, // $5 addon variant ID
+          quantity: 1
+        })
+      });
+    }
+  
+    // 重定向到购物车
+    window.location.href = '/cart';
+  });
+});
+
+
+
+
+</script>
